@@ -7,50 +7,61 @@
 //----------------
 // const, =>, default parameters, arrow functions default return statements using ()
 
-var food = 'pineapple';
+let food = 'pineapple';
 
-var isMyFavoriteFood = function(food) {
-  food = food || 'thousand-year-old egg'; //This sets a default value if `food` is falsey
-  return food === 'thousand-year-old egg';
-};
+const isMyFavoriteFood = (food = 'thousand-year-old egg') => food;
 
-var isThisMyFavorite = isMyFavoriteFood(food);
+const isThisMyFavorite = isMyFavoriteFood(food);
 
 //----------------
 //const, class, template literals, enhanced object literals (foo: foo, -> foo,)
 
-var User = function(options) {
-  this.username = options.username;
-  this.password = options.password;
-  this.sayHi = function() {
-    return this.username + ' says hello!';
-  };
+function User({username, password}) {
+  return {
+    username,
+    password,
+    sayHi() {
+      `${username} says hello!`;
+    }
+  }
 }
 
-var username = 'JavaScriptForever';
-var password = 'password';
+// const options = [
+//   {
+//     username: 'JavaScriptForever',
+//     password: 'password'
+//   }
+// ];
 
-var me = new User({
-  username: username,
-  password: password,
-});
+const me = User({username: 'JavaScriptForever', password: 'password'});
+
+console.log(me.username); // 'JavaScriptForever'
+console.log(me.password); // 'password'
+console.log(me.sayHi()); // undefined :(
 
 // ----------------
 // let, const, =>, ... (spread operator)
 
-var addArgs = function () {
-  var sum = 0;
-  for (var i = 0; i < arguments.length; i++) {
-    sum += arguments[i];
-  }
-  return sum;
+const addArgs = (array) => {
+  const args = Array.from(array);
+  console.log(args);
+  return args.reduce((sum, arg) => {
+    return sum + arg;
+  }, 0)
+  // var sum = 0;
+  // for (var i = 0; i < arguments.length; i++) {
+  //   sum += arguments[i];
+  // }
+  // return sum;
 };
 
-var argsToCb = function (cb) {
-  var args = Array.prototype.slice.call(arguments);
-  return cb.apply(null, args.splice(1));
-};
+// var argsToCb = function (cb) {
+//   var args = Array.prototype.slice.call(arguments);
+//   return cb.apply(null, args.splice(1));
+// };
 
-var result = argsToCb(addArgs, 1, 2, 3, 4, 5); //result should be 15
+var result = addArgs([1,2,3,4]); // => 10
+// var result = argsToCb(addArgs, 1, 2, 3, 4, 5); //result should be 15
+console.log(result);
 
 /* eslint-enable */
