@@ -56,6 +56,11 @@ describe('arrays', () => {
       const result = arrayMethods.find(arr, num => (num === 5));
       expect(result).toBe(5);
     });
+    it('should return undefined', () => {
+      const arr = [1, 2, 3, 4, 6];
+      const result = arrayMethods.find(arr, num => (num === 5));
+      expect(result).toBe(undefined);
+    });
   });
 
   describe('filter', () => {
